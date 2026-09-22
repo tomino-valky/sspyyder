@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual environment
+venv/
+.env
+.venv/
+
+# Scrapy
+httpcache/
+.scrapy/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Zyte credentials (NEVER commit these)
+.scrapinghub.yml
+
+# Local output (use data/ for committed exports)
+output/
+
+# Generated files
+debug_log.txt

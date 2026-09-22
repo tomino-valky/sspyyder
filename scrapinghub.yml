@@ -1,0 +1,19 @@
+# Zyte Scrapy Cloud deployment configuration
+# Replace YOUR_PROJECT_ID with your numeric project ID from:
+#   https://app.zyte.com → Your Project → Settings → Project ID
+#
+# To find your project ID:
+#   1. Log into https://app.zyte.com
+#   2. Create a new Scrapy Cloud project (or use existing)
+#   3. The project ID is the number in the URL: app.zyte.com/p/XXXXXX
+#
+projects:
+  default: 876936
+
+requirements:
+  file: requirements.txt
+
+# Pin the Scrapy Cloud stack to a known-good version
+stacks:
+  default: scrapy:2.11
+

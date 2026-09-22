@@ -1,0 +1,64 @@
+name: Daily Crawl & Dashboard Update
+
+on:
+  schedule:
+    # Run every day at 06:00 UTC (08:00 Prague time)
+    - cron: "0 6 * * *"
+  workflow_dispatch:  # Allow manual triggering from GitHub UI
+
+permissions:
+  contents: write  # Needed to push data back to the repo
+
+jobs:
+  crawl-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install scrapy feedparser python-dateutil
+
+      # ── Run all 4 spiders ──
+      # Each spider outputs to data/<name>.json, overwriting the previous data.
+      # We use -O (overwrite) to keep the files clean.
+      # If a spider fails (e.g., API is down), we continue to the next one.
+
+      - name: Crawl ClinicalTrials.gov
+        run: scrapy crawl clinicaltrials -O data/clinicaltrials.json -s LOG_LEVEL=INFO
+        continue-on-error: true
+
+      - name: Crawl PubMed
+        run: scrapy crawl pubmed -O data/pubmed.json -s LOG_LEVEL=INFO
+        continue-on-error: true
+
+      - name: Crawl bioRxiv
+        run: scrapy crawl biorxiv -O data/biorxiv.json -s LOG_LEVEL=INFO
+        continue-on-error: true
+
+      - name: Crawl RSS Feeds
+        run: scrapy crawl rss -O data/rss.json -s LOG_LEVEL=INFO
+        continue-on-error: true
+
+      # ── Build the dashboard ──
+      - name: Rebuild dashboard
+        run: python build_dashboard.py
+
+      # ── Commit and push updated data + dashboard ──
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ dashboard.html
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "data: daily crawl $(date -u +'%Y-%m-%d')"
+          git push

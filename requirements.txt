@@ -1,0 +1,6 @@
+# Dependencies for Scrapy Cloud deployment
+# NOTE: Do NOT list 'scrapy' here — it's pre-installed in the Zyte stack
+
+feedparser>=6.0.10
+python-dateutil>=2.8.2
+
