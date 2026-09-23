@@ -1,6 +1,6 @@
-# 🕷️ Pavúk — Biotechnology Research Monitor
+# 🕷️ Pawúk — Biotechnology Research Monitor
 
-**Pavúk** (*Slovak for "spider"*) is a Scrapy-based pipeline that aggregates the latest neurobiology and biotechnology research from public APIs into structured JSON data. Built as a master's thesis project at Masaryk University.
+**Pawúk** is a Scrapy-based pipeline that aggregates the latest neurobiology and biotechnology research from public APIs into structured JSON data. Built as a master's thesis project at Masaryk University.
 
 ## What It Does
 
