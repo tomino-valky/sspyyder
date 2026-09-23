@@ -41,6 +41,10 @@ jobs:
         run: scrapy crawl pubmed -O data/pubmed.json -s LOG_LEVEL=INFO
         continue-on-error: true
 
+      - name: Crawl Equine Science
+        run: scrapy crawl equine -O data/equine.json -s LOG_LEVEL=INFO
+        continue-on-error: true
+
       - name: Crawl bioRxiv
         run: scrapy crawl biorxiv -O data/biorxiv.json -s LOG_LEVEL=INFO
         continue-on-error: true

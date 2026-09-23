@@ -21,6 +21,7 @@ SOURCES = {
     "pubmed": ["pubmed.json", "pubmed_test.json"],
     "biorxiv": ["biorxiv.json", "biorxiv_test.json"],
     "rss": ["rss.json", "rss_test.json"],
+    "equine": ["equine.json"],
 }
 
 
@@ -352,6 +353,7 @@ const TABS = [
   {{id:'pubmed', icon:'\U0001F52C', label:'PubMed', title:'PubMed Articles'}},
   {{id:'biorxiv', icon:'\U0001F4C4', label:'bioRxiv', title:'Preprints'}},
   {{id:'rss', icon:'\U0001F4F0', label:'RSS News', title:'Industry News'}},
+  {{id:'equine', icon:'\U0001F40E', label:'Equine Science', title:'Equine Science (PubMed)'}},
 ];
 
 let activeTab='clinicaltrials', searchQuery='';
@@ -395,6 +397,7 @@ function renderResults(){{
   el.innerHTML=filtered.map((it,i)=>{{
     if(activeTab==='clinicaltrials')return trialCard(it,i);
     if(activeTab==='pubmed')return pubmedCard(it,i);
+    if(activeTab==='equine')return pubmedCard(it,i); // Same format as PubMed
     if(activeTab==='biorxiv')return biorxivCard(it,i);
     if(activeTab==='rss')return rssCard(it,i);
     return'';
