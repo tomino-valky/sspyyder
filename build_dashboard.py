@@ -289,6 +289,30 @@ body::before{{
   font-size:14px;
 }}
 
+/* ---- Cookie Banner ---- */
+.cookie-banner{{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  width:90%;max-width:600px;background:var(--bg-surface);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--border);border-radius:16px;
+  padding:20px 24px;display:flex;flex-direction:column;gap:16px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);z-index:9999;
+  opacity:0;pointer-events:none;transition:opacity 0.4s, transform 0.4s;
+  transform:translate(-50%, 20px);
+}}
+.cookie-banner.show{{opacity:1;pointer-events:auto;transform:translate(-50%, 0);}}
+.cookie-text{{font-size:13px;color:var(--text-secondary);line-height:1.5}}
+.cookie-text strong{{color:var(--text)}}
+.cookie-btns{{display:flex;gap:10px;justify-content:flex-end}}
+.cookie-btn{{
+  padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;
+  cursor:pointer;border:none;transition:all 0.2s;
+}}
+.btn-accept{{background:var(--primary);color:#fff}}
+.btn-accept:hover{{background:var(--cyan)}}
+.btn-decline{{background:var(--bg-card);color:var(--text);border:1px solid var(--border)}}
+.btn-decline:hover{{background:var(--bg-card-hover)}}
+
 /* ---- Responsive ---- */
 @media(max-width:900px){{
   :root{{--sidebar-w:0px}}
@@ -299,6 +323,18 @@ body::before{{
 </style>
 </head>
 <body>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-text">
+    <strong>We value your privacy</strong><br>
+    We use tracking technologies (including cookies) to serve targeted advertisements and analyze site traffic. By clicking "Accept", you consent to our use of these technologies. You can read more in our <a href="privacy.html" style="color:var(--primary)">Privacy Policy</a>.
+  </div>
+  <div class="cookie-btns">
+    <button class="cookie-btn btn-decline" onclick="handleConsent(false)">Decline</button>
+    <button class="cookie-btn btn-accept" onclick="handleConsent(true)">Accept & Continue</button>
+  </div>
+</div>
 
 <!-- Sidebar -->
 <nav class="sidebar">
@@ -322,6 +358,7 @@ body::before{{
   <div class="sidebar-nav" id="nav"></div>
   <div class="sidebar-footer">
     Last updated<br>{now}<br><br>
+    <a href="privacy.html" style="color:var(--text-secondary);text-decoration:none;font-weight:500;">Privacy Policy & Terms</a><br><br>
     <span style="opacity:0.6">python build_dashboard.py</span>
   </div>
 </nav>
@@ -505,7 +542,30 @@ function rssCard(r){{
 }}
 
 document.getElementById('search').addEventListener('input',e=>{{searchQuery=e.target.value;renderResults()}});
-renderNav();renderStats();renderResults();
+
+// ---- Consent Management ----
+function initConsent(){{
+  const consent = localStorage.getItem('pavuk_cookie_consent');
+  if (consent === null) {{
+    // Show banner after short delay
+    setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1000);
+  }} else if (consent === 'true') {{
+    enableAds();
+  }}
+}}
+
+function handleConsent(accepted) {{
+  localStorage.setItem('pavuk_cookie_consent', accepted ? 'true' : 'false');
+  document.getElementById('cookieBanner').classList.remove('show');
+  if (accepted) enableAds();
+}}
+
+function enableAds() {{
+  // NOTE: Insert your actual AdSense or tracking code here!
+  console.log("Consent granted: Ad scripts would load here.");
+}}
+
+renderNav();renderStats();renderResults();initConsent();
 </script>
 </body>
 </html>'''
