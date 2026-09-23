@@ -5,7 +5,7 @@ Reads JSON data from data/ and generates a self-contained dashboard.html.
 
 USAGE:
     python build_dashboard.py
-    start dashboard.html
+    start index.html
 """
 
 import json
@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 DATA_DIR = Path("data")
-OUTPUT_FILE = Path("dashboard.html")
+OUTPUT_FILE = Path("index.html")
 
 SOURCES = {
     "clinicaltrials": ["clinicaltrials.json", "clinicaltrials_test.json"],
