@@ -1,5 +1,5 @@
 """
-Pavuk - Dashboard Builder (Glass Lab Design)
+Pawuk - Dashboard Builder (Glass Lab Design)
 
 Reads JSON data from data/ and generates a self-contained dashboard.html.
 
@@ -69,7 +69,7 @@ def build_html(data):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pavuk - Neurobiology Research Monitor</title>
+<title>Pawuk - Neurobiology Research Monitor</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -351,7 +351,7 @@ body::before{{
         <line x1="34" y1="6" x2="6" y2="34" stroke="url(#g1)" stroke-width="0.4" opacity="0.25"/>
         <defs><linearGradient id="g1" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#5b9aff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
       </svg>
-      <h1>PAVUK</h1>
+      <h1>Pawuk</h1>
     </div>
     <div class="sidebar-subtitle">Neurobiology Monitor</div>
   </div>
@@ -545,7 +545,7 @@ document.getElementById('search').addEventListener('input',e=>{{searchQuery=e.ta
 
 // ---- Consent Management ----
 function initConsent(){{
-  const consent = localStorage.getItem('pavuk_cookie_consent');
+  const consent = localStorage.getItem('Pawuk_cookie_consent');
   if (consent === null) {{
     // Show banner after short delay
     setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1000);
@@ -555,7 +555,7 @@ function initConsent(){{
 }}
 
 function handleConsent(accepted) {{
-  localStorage.setItem('pavuk_cookie_consent', accepted ? 'true' : 'false');
+  localStorage.setItem('Pawuk_cookie_consent', accepted ? 'true' : 'false');
   document.getElementById('cookieBanner').classList.remove('show');
   if (accepted) enableAds();
 }}
@@ -572,7 +572,7 @@ renderNav();renderStats();renderResults();initConsent();
 
 
 def main():
-    print("Pavuk Dashboard Builder")
+    print("Pawuk Dashboard Builder")
     print("=" * 40)
 
     if not DATA_DIR.exists():
